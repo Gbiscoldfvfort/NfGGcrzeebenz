@@ -1,5 +1,5 @@
 # Path to Rw.exe
-$rwePath = "C:\Program Files (x86)\RW-Everything\Rw.exe"
+$rwePath = "C:\Program Files\RW-Everything\Rw.exe"
 
 # Global settings for lowest latency
 $globalInterval = 0x80000000  # Set to 0 for lowest latency

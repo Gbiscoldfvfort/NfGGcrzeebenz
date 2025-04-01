@@ -8051,55 +8051,9 @@ $MaximizeButton.Add_Click({
 
 # Close Button Handler
 $CloseButton.Add_Click({
-        $showDialog = $true
-        $preferences = Get-UserPreferences
+    Exit
+})
 
-        # Check if the user has previously opted out
-        if ($preferences -and $preferences.DontShowSupport) {
-            $showDialog = $false
-        }
-
-        if ($showDialog) {
-            $heart = [char]0x2764
-            $response = Show-MessageBox -Message "Thanks for using Winhance! $heart
-
-If you found this tool helpful, please consider:
-- Making a small donation via PayPal
-- Giving us a Star on GitHub
-
-Click 'Yes' to show your support!" `
-                -Title "Support Winhance" `
-                -Buttons "YesNo" `
-                -Icon "Information"
-
-            if ($response -eq 'Yes') {
-                Start-Process "https://github.com/memstechtips/Winhance"
-                Start-Process "https://paypal.me/memstech"
-            }
-            else {
-                # Create new preferences hashtable
-                $newPreferences = @{}
-
-                # Get existing preferences and copy them
-                if ($preferences) {
-                    $preferences.PSObject.Properties | ForEach-Object {
-                        $newPreferences[$_.Name] = $_.Value
-                    }
-                }
-
-                # Update or add the DontShowSupport preference
-                $newPreferences["DontShowSupport"] = $true
-
-                # Save updated preferences
-                $saveResult = Save-UserPreferences -Preferences $newPreferences
-                if (-not $saveResult) {
-                    Write-Log -Message "Failed to save support preference" -Severity "WARNING"
-                }
-            }
-        }
-
-        Exit
-    })
 
 $window.Add_SizeChanged({
         # Get the window's current size
